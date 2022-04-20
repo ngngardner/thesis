@@ -1,0 +1,285 @@
+\documentclass[12pt]{article}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{mathptmx} % times new roman
+\usepackage{tocloft} % table of contents
+% ========================================== %
+% document options
+\doublespacing
+\raggedright
+\geometry{ 
+    a4paper,
+    margin=1in,
+    lmargin=1.5in
+}
+
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+% ========================================== %
+% section notations
+\renewcommand{\thesection}{}
+\renewcommand{\thesubsection}{}
+\renewcommand*\contentsname{ 
+    {\MakeUppercase{Table of Contents}} 
+}
+\renewcommand*\listfigurename{ 
+    {\section{{LIST OF FIGURES}}} 
+}
+\renewcommand*\listtablename{
+    {\section{{LIST OF TABLES}}} 
+}
+% ========================================== %
+% custom variables
+\newcommand{\thesistitle}{
+    {\Large A comparative analysis of texture analysis methods on
+ant images}
+}
+\newcommand{\toppage}{\vspace*{0.3in}}
+% ========================================== %
+
+\begin{document}
+\pagenumbering{roman}
+% ========================================== %
+% thesis premable page
+\toppage
+\begin{center}
+    \textbf{\MakeUppercase{\thesistitle}}
+    \vspace{1in}
+
+    A Thesis Presented to
+
+    The Faculty of the Computer Science Department
+    \vspace{1in}
+
+    by
+    \vspace{0.5in}
+
+    Noah Gardner
+    \vspace{1in}
+
+    In Partial Fulfillment
+
+    of Requirements for the Degree
+
+    Master of Science in Computer Science
+
+    \vspace{1in}
+    Kennesaw State University
+
+    May 2022
+\end{center}
+\thispagestyle{empty}
+\newpage
+
+% ========================================== %
+% agreement
+\toppage
+\noindent In presenting this thesis as a partial fulfillment of the requirements
+for an advanced degree from Kennesaw State University, I agree that the
+university library shall make it available for inspection and circulation in
+accordance with its regulations governing materials of this type. I agree that
+permission to copy from, or to publish, this thesis may be granted by the
+professor under whose direction it was written, or, in his absence, by the dean
+of the appropriate school when such copying or publication is solely for
+scholarly purposes and does not involve potential financial gain. It is
+understood that any copying from or publication of, this thesis which involves
+potential financial gain will not be allowed without written permission.
+\vspace{2in}
+
+\def\dotsign{\xleaders\hbox to .2em{\d{}}\hfill\d{}}
+\begin{center}
+    \makebox[.5\linewidth][r]\dotsign\smallskip\\
+    Noah Gardner
+\end{center}
+\newpage
+
+% ========================================== %
+% notice to borrowers
+\toppage
+\begin{center}
+    \textbf{\underline{Notice to Borrowers}}
+\end{center}
+\vspace{0.5in}
+
+\noindent Unpublished theses deposited in the Library of Kennesaw State
+University must be used only in accordance with the stipulations prescribed by
+the author in the preceding statement.
+\vspace{0.5in}
+
+\noindent The author of this thesis is:
+\begin{center}
+    Noah Gardner
+
+    1100 S Marietta Parkway
+
+    Marietta, GA 30060
+\end{center}
+
+\noindent The director of this thesis is:
+\begin{center}
+    Chih-Cheng Hung
+
+    1100 S Marietta Parkway
+
+    Marietta, GA 30060
+\end{center}
+\vspace{0.5in}
+
+\noindent Users of this thesis not regularly enrolled as students at Kennesaw
+State University are required to attest acceptance of the preceding stipulations
+by signing below. Libraries borrowing this thesis for the use of their patrons
+are required to see that each user records here the information requested.
+\vspace{0.3in}
+
+\noindent
+Name of user \hspace{0.2in} Address \hspace{0.2in} Date \hspace{0.2in} Type of
+use (examination only or copying)
+\newpage
+
+% ========================================== %
+% abstract preamble page title page
+\toppage
+\begin{center}
+    \textbf{\MakeUppercase{\thesistitle}}
+    \vspace{1in}
+
+    An Abstract of
+
+    A Thesis Presented to
+
+    The Faculty of the Computer Science Department
+    \vspace{1in}
+
+    by
+    \vspace{0.5in}
+
+    Noah Gardner
+    \vspace{1in}
+
+    In Partial Fulfillment
+
+    of Requirements for the Degree
+
+    Master of Science in Computer Science
+
+    \vspace{1in}
+    Kennesaw State University
+
+    May 2022
+\end{center}
+\newpage
+
+% ========================================== %
+% abstract page
+\toppage
+\begin{center}
+    \section{ABSTRACT}
+\end{center}
+\vspace{0.5in}
+
+\noindent There is a large variety of ant species, and most species are diverse
+in terms of size, shape, behaviors, and especially skin (cuticle) textures.
+However, the significance of ant cuticle texture is not widely researched. This
+research employs modern machine learning methods such as texture analysis and
+classification with CNN and clustering to automatically group similar ant
+species to allow for the study of influences cuticle texture on ant ecology.
+\newpage
+
+% ========================================== %
+% advisor preamble
+\toppage
+\begin{center}
+    \textbf{\MakeUppercase{\thesistitle}}
+    \vspace{1in}
+
+    A Thesis Presented to
+
+    The Faculty of the Computer Science Department
+    \vspace{1in}
+
+    by
+    \vspace{0.5in}
+
+    Noah Gardner
+    \vspace{1in}
+
+    In Partial Fulfillment
+
+    of Requirements for the Degree
+
+    Master of Science in Computer Science
+    \vspace{0.5in}
+
+    Advisor: Dr. Chih-Cheng Hung
+    \vspace{0.5in}
+
+    Kennesaw State University
+
+    May 2022
+\end{center}
+\newpage
+
+% ========================================== %
+% quote page
+\toppage
+Never fail to have this attitude of mind, go forward without hurry, learn the
+essence of things through frequent experiences, taking advantage of every
+occasion. Fight against all kinds of people and be aware of their mind. Follow a
+road that is a thousand leagues long one step at a time. Be without haste and be
+convinced that all these practices are the duty of a bushi. Be victorious today
+over what you were yesterday; tomorrow be victorious over your clumsiness and
+then also over your skill. Practice in accordance with what I have written
+without letting your mind deviate from the way.
+
+\vspace{0.5in}
+\hspace*{\fill} Miyamoto Musashi \footnote{Miyamoto Musashi, The Book of Five
+    Rings}
+\newpage
+
+% ========================================== %
+% acknowledgements page
+\toppage
+\begin{center}
+    \section{ACKNOWLEDGEMENTS}
+\end{center}
+\vspace{0.5in}
+
+\noindent I would like to thank my loving family for their support throughout
+the completion of my graduate degree. I would also like to thank Dr. Chih-Cheng
+Hung for his mentorship for my thesis and for his guidance in my other research
+projects.
+\newpage
+
+% ========================================== %
+% table of contents
+\begin{center}
+    \tableofcontents
+\end{center}
+\newpage
+
+% ========================================== %
+% list of figures
+\begin{center}
+    \listoffigures
+\end{center}
+\newpage
+
+% ========================================== %
+% list of tables 
+\begin{center}
+    \listoftables
+\end{center}
+\newpage
+
+% ========================================== %
+% begin content
+\pagenumbering{arabic}
+\section{Introduction}
+
+\end{document}
