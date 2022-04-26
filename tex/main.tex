@@ -5,6 +5,11 @@
 % \usepackage{mathptmx} % times new roman
 \usepackage{tocloft} % table of contents
 \usepackage{graphicx}
+\usepackage[
+    backend=bibtex,
+    style=ieee,
+]{biblatex}
+\addbibresource{refs.bib}
 % ========================================== %
 % document options
 \doublespacing
@@ -256,8 +261,9 @@ I would have given up a long time ago without the support of my family. So, I
 would like to thank my loving family for their support throughout the completion
 of my graduate degree. I would also like to thank Dr. Chih-Cheng Hung for his
 mentorship for my thesis and for his guidance in my other research projects.
-Finally, I would like to thank Dr. Zhiling Long for his insights for machine
-learning and texture analysis.
+Next, I would like to thank Dr. Zhiling Long for his insights for machine
+learning and texture analysis. Finally, I would like to thank Dr. Coskun Tekes
+for providing the Lambda Labs GPU server for my experiments.
 \newpage
 
 % ========================================== %
@@ -284,11 +290,27 @@ learning and texture analysis.
 % ========================================== %
 % begin content
 \pagenumbering{arabic}
+\setlength{\parskip}{\baselineskip}
 
 % ========================================== %
 % chapter 1 - introduction and background
-\section{CHAPTER 1 - INTRODUCTION AND BACKGROUND}
+\section{CHAPTER 1: INTRODUCTION AND BACKGROUND}
 \subsection{Introduction}
+
+Insects comprise over half of the world's animal biodiversity
+\cite{tihelka_evolution_2021}. Insects are vital to many ecosystem functions,
+including nutrient recycling, plant propagation, and maintenance of plant and
+animal communities \cite{gullan_insects_2009, berenbaum_bugs_1996}. As technology
+advances, systems which can automatically analyze insect-based information are
+growing in demand by biologists. Due to the extensive number of insect species,
+manual exploration of insect-based information is difficult and often requires
+specialized expertise. Therefore, automated entomology is gaining attraction by
+both biologists and computer scientists and is expected to be a major
+contribution to the future of insect-based research
+\cite{martineau_survey_2017}. One of the most commonly used data types for
+insect analysis is image data. To develop an image-based system for insect
+analysis, we can take advantage of existing work in general image processing and
+texture analysis methods.
 
 Texture is an important feature in many applications, such as image processing,
 pattern recognition, and computer vision. Analysis of textures can be broken
@@ -299,20 +321,31 @@ paper, we focus on a \textit{model-based approach} which attempts to extract
 parameters to reveal common patterns and use those parameters to automatically
 distinguish between different textures \cite{maillard_texture_2003}.
 
-Although there is some work regarding grouping ants into categories of similar
-cuticle, automated classification has yet to become an active area of research.
-Due to the large number of different ant species, the classification of ants
-into categories of similar texture is difficult to accomplish manually. Texture
-analysis has shown promising results in related fields, such as plant
-identification \cite{boudra_plant_2018}. With modern texture analysis methods,
-the classifications of ants can be automated and the results can be used to
-study the influence of cuticle texture on ant ecology.
+In this work, we explore automated entomology specifically for ants. Although
+there is some work regarding grouping ants into categories of similar cuticle,
+automated categorization has yet to become an active area of research. In
+general, the goal of automated insect classification methods is species
+indentification - \textit{i.e.} the identification of species from a set of
+observations. Due to the large number of different ant species, large scale ant
+species indentification with standard classification methods is not feasible.
+Therefore, we must simplify the problem by either other classifying a certain
+subset of ant species or by applying categories to the entire set of ant
+species.
+
+In many texture analysis methods, the general goal is to automatically
+categorize an object into a set of objects with similar texture-based features.
+The approach of texture analysis to categorize similarly texture-based objects
+corresponds well to the demands of ant identification. Texture analysis has
+shown promising results in related fields, such as plant identification
+\cite{boudra_plant_2018}. With modern texture analysis methods, the
+categorization of ants can be automated and the results can be used to study the
+influence of cuticle texture on ant ecology.
 
 \subsection{Research Question}
 
 The overarching question that we wish to address by beginning this research is:
 \textit{how does the texture of ant cuticle affect the ant ecology}? However, to
-even begin contemplating this questions requires a substantial amount of
+even begin contemplating this question requires a substantial amount of
 preliminiary research. One point that is necessary to begin this research is to
 propose a method of group ants by texture. Additionally, due to the sheer number
 of ant species, an automated effort is necessary to group similar ant species.
@@ -329,8 +362,9 @@ depict the texture of the ant cuticle. We source our raw images from AntWeb
 shown in Figure \ref{fig:CASENT0217419}. In general, the ant head images are centered in
 the image, facing the front, and share a similar posture. However, some images
 may not be centered, show the ant head in a different orientation, or may have a
-drastically different resolution from the average image. The dataset shall be
-covered in more detail in the methodology section.
+drastically different resolution from the average image. With some data
+preprocessing methods, these ant head images are suitable for traditional
+methods of image classification.
 
 \begin{figure}[ht]
     \centering
@@ -347,24 +381,59 @@ covered in more detail in the methodology section.
 \subsection{Research Impact}
 
 The primary contribution of this research is the development of a unique dataset
-for ant cuticle texture classification.
-
+for ant cuticle texture classification. Additionally, we compare the results of
+state-of-the-art deep learning and texture analysis methods on our proposed
+dataset. The secondary contribution is the analysis of the results of these
+methods and data analysis.
+\newpage
 % ========================================== %
 % chapter 2 - literature review
-\section{CHAPTER 2 - LITERATURE REVIEW}
+\section{CHAPTER 2: LITERATURE REVIEW}
 
+\subsection{Insect Classification}
+
+In this section, we provide an overview of some insect classification methods.
+
+\citeauthor*{lim_performance_2017} apply a CNN-based algorithm for insect
+classification \cite{lim_performance_2017}. \citeauthor*{lim_performance_2017}
+classify a subset of insect species and families based on the classes available
+in the ImageNet dataset \cite{deng_imagenet_2009}. ImageNet is a widely used
+dataset of images labeled by experts with millions of images and thousands of
+categories \cite{deng_imagenet_2009}. In the ImageNet dataset, there are some
+categories that specify the class of the insect on a species level,
+\textit{e.g.} \textit{monarch butterfly} and \textit{ringlet butterfly} as well
+as some categories that specify the class of the insect on a family level,
+\textit{e.g.} \textit{ant}, \textit{fly}, and \textit{bee}
+\cite{imagenet_labels}. \citeauthor*{lim_performance_2017} use a modified
+AlexNet architecture and experiment on how different numbers of kernels affect
+the performance of the model \cite{lim_performance_2017}.
+\citeauthor*{glick_insect_2016} employ a similar approach by classifying 277
+insect classes from ImageNet using a hierarchical CNN \cite{glick_insect_2016}.
+The results from \citeauthor*{lim_performance_2017} and
+\citeauthor*{glick_insect_2016} suggest that a CNN is capable of differentiating
+between different hierarchical classes of insects. In our research, we are
+interested in the classification of ant images of a hierarchical level
+in-between species and family.
+
+% bees
+
+% fruit flies
+
+\newpage
 % ========================================== %
 % chapter 3 - methodology
-\section{CHAPTER 3 - METHODOLOGY}
-
+\section{CHAPTER 3: METHODOLOGY}
+\newpage
 % ========================================== %
 % chapter 4 - experimental results and analysis
-\section{CHAPTER 4 - EXPERIMENTAL RESULTS AND ANALYSIS}
+\section{CHAPTER 4: EXPERIMENTAL RESULTS AND ANALYSIS}
 
+\subsection{Environment}
+\newpage
 % ========================================== %
 % chapter 5 - conclusion
-\section{CHAPTER 5 - CONCLUSION}
+\section{CHAPTER 5: CONCLUSION}
+\newpage
 
-\bibliographystyle{IEEEtran}
-\bibliography{refs}
+\printbibliography
 \end{document}
