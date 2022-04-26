@@ -2,8 +2,9 @@
 \usepackage{setspace}
 \usepackage{geometry}
 \usepackage{hyperref}
-\usepackage{mathptmx} % times new roman
+% \usepackage{mathptmx} % times new roman
 \usepackage{tocloft} % table of contents
+\usepackage{graphicx}
 % ========================================== %
 % document options
 \doublespacing
@@ -250,10 +251,13 @@ without letting your mind deviate from the way.
 \end{center}
 \vspace{0.5in}
 
-\noindent I would like to thank my loving family for their support throughout
-the completion of my graduate degree. I would also like to thank Dr. Chih-Cheng
-Hung for his mentorship for my thesis and for his guidance in my other research
-projects.
+\noindent It is a bit cliche for an author to thank their family. Nevertheless,
+I would have given up a long time ago without the support of my family. So, I
+would like to thank my loving family for their support throughout the completion
+of my graduate degree. I would also like to thank Dr. Chih-Cheng Hung for his
+mentorship for my thesis and for his guidance in my other research projects.
+Finally, I would like to thank Dr. Zhiling Long for his insights for machine
+learning and texture analysis.
 \newpage
 
 % ========================================== %
@@ -280,6 +284,87 @@ projects.
 % ========================================== %
 % begin content
 \pagenumbering{arabic}
-\section{Introduction}
 
+% ========================================== %
+% chapter 1 - introduction and background
+\section{CHAPTER 1 - INTRODUCTION AND BACKGROUND}
+\subsection{Introduction}
+
+Texture is an important feature in many applications, such as image processing,
+pattern recognition, and computer vision. Analysis of textures can be broken
+into three main categories: texture classification, texture segmentation, and
+texture synthesis \cite{reed_review_1993}. The process of classifying a texture
+into a set of categories and relies on three different approaches. In this
+paper, we focus on a \textit{model-based approach} which attempts to extract
+parameters to reveal common patterns and use those parameters to automatically
+distinguish between different textures \cite{maillard_texture_2003}.
+
+Although there is some work regarding grouping ants into categories of similar
+cuticle, automated classification has yet to become an active area of research.
+Due to the large number of different ant species, the classification of ants
+into categories of similar texture is difficult to accomplish manually. Texture
+analysis has shown promising results in related fields, such as plant
+identification \cite{boudra_plant_2018}. With modern texture analysis methods,
+the classifications of ants can be automated and the results can be used to
+study the influence of cuticle texture on ant ecology.
+
+\subsection{Research Question}
+
+The overarching question that we wish to address by beginning this research is:
+\textit{how does the texture of ant cuticle affect the ant ecology}? However, to
+even begin contemplating this questions requires a substantial amount of
+preliminiary research. One point that is necessary to begin this research is to
+propose a method of group ants by texture. Additionally, due to the sheer number
+of ant species, an automated effort is necessary to group similar ant species.
+Therefore, we start our endeavor with a more straightforward research question:
+\textit{are texture analysis methods able to group similar ant species}? By the
+end of this research, we will answer this question by demonstrating a variety of
+texture analysis methods and comparing their results on a custom dataset.
+
+\subsection{Proposed Approach}
+
+In order to group similar ant species, we require mostly uniform images that
+depict the texture of the ant cuticle. We source our raw images from AntWeb
+\cite{perrichot_antweb_2012}, a database of ant head images. An example image is
+shown in Figure \ref{fig:CASENT0217419}. In general, the ant head images are centered in
+the image, facing the front, and share a similar posture. However, some images
+may not be centered, show the ant head in a different orientation, or may have a
+drastically different resolution from the average image. The dataset shall be
+covered in more detail in the methodology section.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/images/CASENT0217419.jpg}
+    \caption{ An example ant head image from AntWeb of species
+        \textit{Polyrhachis abbreviata} - specimen
+        \href{https://www.antweb.org/bigPicture.do?name=casent0217419&shot=h&number=1}{CASENT0217419}
+        by \href{https://www.antweb.org/artist.do?id=92}{Estella Ortega}, from
+        \href{https://www.antweb.org}{AntWeb}, is licensed under
+        \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.}
+    \label{fig:CASENT0217419}
+\end{figure}
+
+\subsection{Research Impact}
+
+The primary contribution of this research is the development of a unique dataset
+for ant cuticle texture classification.
+
+% ========================================== %
+% chapter 2 - literature review
+\section{CHAPTER 2 - LITERATURE REVIEW}
+
+% ========================================== %
+% chapter 3 - methodology
+\section{CHAPTER 3 - METHODOLOGY}
+
+% ========================================== %
+% chapter 4 - experimental results and analysis
+\section{CHAPTER 4 - EXPERIMENTAL RESULTS AND ANALYSIS}
+
+% ========================================== %
+% chapter 5 - conclusion
+\section{CHAPTER 5 - CONCLUSION}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
 \end{document}
