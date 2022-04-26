@@ -1,10 +1,11 @@
 \documentclass[12pt]{article}
-\usepackage{setspace}
-\usepackage{geometry}
-\usepackage{hyperref}
+\usepackage{setspace}   % double spacing
+\usepackage{geometry}   % margins 
+\usepackage{hyperref}   % hyperlinks
 % \usepackage{mathptmx} % times new roman
-\usepackage{tocloft} % table of contents
-\usepackage{graphicx}
+\usepackage{tocloft}    % table of contents
+\usepackage{graphicx}   % graphics
+\usepackage{placeins}   % manage placement of figures
 \usepackage[
     backend=bibtex,
     style=ieee,
@@ -20,6 +21,7 @@
     lmargin=1.5in
 }
 
+% hyperlinks for toc
 \usepackage{xcolor}
 \hypersetup{
     colorlinks,
@@ -29,22 +31,26 @@
 }
 % ========================================== %
 % section notations
-\renewcommand{\thesection}{}
-\renewcommand{\thesubsection}{}
 \renewcommand*\contentsname{ 
     {\MakeUppercase{Table of Contents}} 
 }
 \renewcommand*\listfigurename{ 
-    {\section{{LIST OF FIGURES}}} 
+    {
+        \section*{LIST OF FIGURES}
+        \addcontentsline{toc}{section}{LIST OF FIGURES}
+    } 
 }
 \renewcommand*\listtablename{
-    {\section{{LIST OF TABLES}}} 
+    {
+        \section*{{LIST OF TABLES}}
+        \addcontentsline{toc}{section}{LIST OF TABLES}
+    } 
 }
 % ========================================== %
 % custom variables
 \newcommand{\thesistitle}{
     {\Large A comparative analysis of texture analysis methods on
-ant images}
+ant head images}
 }
 \newcommand{\toppage}{\vspace*{0.3in}}
 % ========================================== %
@@ -185,7 +191,8 @@ use (examination only or copying)
 % abstract page
 \toppage
 \begin{center}
-    \section{ABSTRACT}
+    \section*{ABSTRACT}
+    \addcontentsline{toc}{section}{ABSTRACT}
 \end{center}
 \vspace{0.5in}
 
@@ -232,6 +239,15 @@ species to allow for the study of influences cuticle texture on ant ecology.
 \newpage
 
 % ========================================== %
+% dedication page
+\vspace*{\fill}
+\begin{center}
+    \textit{To my family}
+\end{center}
+\vspace*{\fill}
+\newpage
+
+% ========================================== %
 % quote page
 \toppage
 Never fail to have this attitude of mind, go forward without hurry, learn the
@@ -252,7 +268,8 @@ without letting your mind deviate from the way.
 % acknowledgements page
 \toppage
 \begin{center}
-    \section{ACKNOWLEDGEMENTS}
+    \section*{ACKNOWLEDGEMENTS}
+    \addcontentsline{toc}{section}{ACKNOWLEDGEMENTS}
 \end{center}
 \vspace{0.5in}
 
@@ -366,7 +383,7 @@ drastically different resolution from the average image. With some data
 preprocessing methods, these ant head images are suitable for traditional
 methods of image classification.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{assets/images/CASENT0217419.jpg}
     \caption{ An example ant head image from AntWeb of species
@@ -378,6 +395,7 @@ methods of image classification.
     \label{fig:CASENT0217419}
 \end{figure}
 
+\FloatBarrier
 \subsection{Research Impact}
 
 The primary contribution of this research is the development of a unique dataset
@@ -423,10 +441,12 @@ in-between species and family.
 % ========================================== %
 % chapter 3 - methodology
 \section{CHAPTER 3: METHODOLOGY}
+
 \newpage
 % ========================================== %
 % chapter 4 - experimental results and analysis
 \section{CHAPTER 4: EXPERIMENTAL RESULTS AND ANALYSIS}
+
 
 \subsection{Environment}
 \newpage
