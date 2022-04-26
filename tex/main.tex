@@ -1,9 +1,9 @@
 \documentclass[12pt]{article}
-\usepackage{setspace}
-\usepackage{geometry}
-\usepackage{hyperref}
-\usepackage{mathptmx} % times new roman
-\usepackage{tocloft} % table of contents
+\usepackage{setspace}   % double spacing
+\usepackage{geometry}   % margins 
+\usepackage{hyperref}   % hyperlinks
+% \usepackage{mathptmx} % times new roman
+\usepackage{tocloft}    % table of contents
 % ========================================== %
 % document options
 \doublespacing
@@ -14,6 +14,7 @@
     lmargin=1.5in
 }
 
+% hyperlinks for toc
 \usepackage{xcolor}
 \hypersetup{
     colorlinks,
@@ -23,24 +24,37 @@
 }
 % ========================================== %
 % section notations
-\renewcommand{\thesection}{}
-\renewcommand{\thesubsection}{}
+\renewcommand{\thesubsection}{\arabic{subsection}}
 \renewcommand*\contentsname{ 
     {\MakeUppercase{Table of Contents}} 
 }
 \renewcommand*\listfigurename{ 
-    {\section{{LIST OF FIGURES}}} 
+    {
+        \section*{LIST OF FIGURES}
+        \addcontentsline{toc}{section}{LIST OF FIGURES}
+    } 
 }
 \renewcommand*\listtablename{
-    {\section{{LIST OF TABLES}}} 
+    {
+        \section*{{LIST OF TABLES}}
+        \addcontentsline{toc}{section}{LIST OF TABLES}
+    } 
 }
 % ========================================== %
 % custom variables
 \newcommand{\thesistitle}{
     {\Large A comparative analysis of texture analysis methods on
-ant images}
+ant head images}
 }
 \newcommand{\toppage}{\vspace*{0.3in}}
+\newcommand{\chapterheader}[2]{
+    \begin{center}
+        \textbf{\Large{
+            \section*{CHAPTER #1: #2}
+            \addcontentsline{toc}{section}{CHAPTER #1: #2}
+        }}
+    \end{center}
+}
 % ========================================== %
 
 \begin{document}
@@ -179,7 +193,8 @@ use (examination only or copying)
 % abstract page
 \toppage
 \begin{center}
-    \section{ABSTRACT}
+    \section*{ABSTRACT}
+    \addcontentsline{toc}{section}{ABSTRACT}
 \end{center}
 \vspace{0.5in}
 
@@ -226,6 +241,15 @@ species to allow for the study of influences cuticle texture on ant ecology.
 \newpage
 
 % ========================================== %
+% dedication page
+\vspace*{\fill}
+\begin{center}
+    \textit{To my family}
+\end{center}
+\vspace*{\fill}
+\newpage
+
+% ========================================== %
 % quote page
 \toppage
 Never fail to have this attitude of mind, go forward without hurry, learn the
@@ -246,14 +270,15 @@ without letting your mind deviate from the way.
 % acknowledgements page
 \toppage
 \begin{center}
-    \section{ACKNOWLEDGEMENTS}
+    \section*{ACKNOWLEDGEMENTS}
+    \addcontentsline{toc}{section}{ACKNOWLEDGEMENTS}
 \end{center}
 \vspace{0.5in}
 
 \noindent I would like to thank my loving family for their support throughout
 the completion of my graduate degree. I would also like to thank Dr. Chih-Cheng
-Hung for his mentorship for my thesis and for his guidance in my other research
-projects.
+Hung for his mentorship for my thesis, for his guidance in my other research
+projects, and for giving me the freedom to explore a variety of research topics.
 \newpage
 
 % ========================================== %
@@ -280,6 +305,7 @@ projects.
 % ========================================== %
 % begin content
 \pagenumbering{arabic}
-\section{Introduction}
+\chapterheader{1}{INTRODUCTION AND BACKGROUND}
+\subsection{Introduction}
 
 \end{document}
