@@ -2,7 +2,7 @@
 \usepackage{setspace}   % double spacing
 \usepackage{geometry}   % margins 
 \usepackage{hyperref}   % hyperlinks
-% \usepackage{mathptmx} % times new roman
+% \usepackage{mathptmx}   % times new roman
 \usepackage{tocloft}    % table of contents
 \usepackage{graphicx}   % graphics
 \usepackage{placeins}   % manage placement of figures
@@ -13,7 +13,7 @@
 \addbibresource{refs.bib}
 % ========================================== %
 % document options
-\doublespacing
+\setstretch{2} % double spacing
 \raggedright
 \geometry{ 
     a4paper,
@@ -52,14 +52,13 @@
     {\Large A comparative analysis of texture analysis methods on
 ant head images}
 }
-\newcommand{\toppage}{\vspace*{0.3in}}
+% \newcommand{\toppage}{\vspace*{0.1in}}
 % ========================================== %
 
 \begin{document}
 \pagenumbering{roman}
 % ========================================== %
 % thesis premable page
-\toppage
 \begin{center}
     \textbf{\MakeUppercase{\thesistitle}}
     \vspace{1in}
@@ -91,7 +90,6 @@ ant head images}
 
 % ========================================== %
 % agreement
-\toppage
 \noindent In presenting this thesis as a partial fulfillment of the requirements
 for an advanced degree from Kennesaw State University, I agree that the
 university library shall make it available for inspection and circulation in
@@ -113,7 +111,6 @@ potential financial gain will not be allowed without written permission.
 
 % ========================================== %
 % notice to borrowers
-\toppage
 \begin{center}
     \textbf{\underline{Notice to Borrowers}}
 \end{center}
@@ -156,7 +153,6 @@ use (examination only or copying)
 
 % ========================================== %
 % abstract preamble page title page
-\toppage
 \begin{center}
     \textbf{\MakeUppercase{\thesistitle}}
     \vspace{1in}
@@ -189,7 +185,6 @@ use (examination only or copying)
 
 % ========================================== %
 % abstract page
-\toppage
 \begin{center}
     \section*{ABSTRACT}
     \addcontentsline{toc}{section}{ABSTRACT}
@@ -206,7 +201,6 @@ species to allow for the study of influences cuticle texture on ant ecology.
 
 % ========================================== %
 % advisor preamble
-\toppage
 \begin{center}
     \textbf{\MakeUppercase{\thesistitle}}
     \vspace{1in}
@@ -249,15 +243,14 @@ species to allow for the study of influences cuticle texture on ant ecology.
 
 % ========================================== %
 % quote page
-\toppage
+\vspace*{2in}
 Never fail to have this attitude of mind, go forward without hurry, learn the
 essence of things through frequent experiences, taking advantage of every
 occasion. Fight against all kinds of people and be aware of their mind. Follow a
 road that is a thousand leagues long one step at a time. Be without haste and be
 convinced that all these practices are the duty of a bushi. Be victorious today
 over what you were yesterday; tomorrow be victorious over your clumsiness and
-then also over your skill. Practice in accordance with what I have written
-without letting your mind deviate from the way.
+then also over your skill.
 
 \vspace{0.5in}
 \hspace*{\fill} Miyamoto Musashi \footnote{Miyamoto Musashi, The Book of Five
@@ -266,21 +259,21 @@ without letting your mind deviate from the way.
 
 % ========================================== %
 % acknowledgements page
-\toppage
 \begin{center}
     \section*{ACKNOWLEDGEMENTS}
     \addcontentsline{toc}{section}{ACKNOWLEDGEMENTS}
 \end{center}
 \vspace{0.5in}
 
-\noindent It is a bit cliche for an author to thank their family. Nevertheless,
 I would have given up a long time ago without the support of my family. So, I
 would like to thank my loving family for their support throughout the completion
 of my graduate degree. I would also like to thank Dr. Chih-Cheng Hung for his
 mentorship for my thesis and for his guidance in my other research projects.
 Next, I would like to thank Dr. Zhiling Long for his insights for machine
-learning and texture analysis. Finally, I would like to thank Dr. Coskun Tekes
-for providing the Lambda Labs GPU server for my experiments.
+learning and texture analysis. I would like to thank John Paul Hellenbrand, his
+advisor Dr. Clint Penick, and their lab for providing the project and dataset.
+Finally, I would like to thank Dr. Coskun Tekes for providing the Lambda Labs
+GPU server for my experiments.
 \newpage
 
 % ========================================== %
@@ -310,24 +303,29 @@ for providing the Lambda Labs GPU server for my experiments.
 \setlength{\parskip}{\baselineskip}
 
 % ========================================== %
-% chapter 1 - introduction and background
-\section{CHAPTER 1: INTRODUCTION AND BACKGROUND}
+% chapter 1 - introduction
+\section{CHAPTER 1: INTRODUCTION}
 \subsection{Introduction}
 
 Insects comprise over half of the world's animal biodiversity
 \cite{tihelka_evolution_2021}. Insects are vital to many ecosystem functions,
 including nutrient recycling, plant propagation, and maintenance of plant and
-animal communities \cite{gullan_insects_2009, berenbaum_bugs_1996}. As technology
-advances, systems which can automatically analyze insect-based information are
-growing in demand by biologists. Due to the extensive number of insect species,
-manual exploration of insect-based information is difficult and often requires
-specialized expertise. Therefore, automated entomology is gaining attraction by
-both biologists and computer scientists and is expected to be a major
-contribution to the future of insect-based research
-\cite{martineau_survey_2017}. One of the most commonly used data types for
-insect analysis is image data. To develop an image-based system for insect
-analysis, we can take advantage of existing work in general image processing and
-texture analysis methods.
+animal communities \cite{gullan_insects_2009, berenbaum_bugs_1996}. As
+technology advances, systems which can automatically analyze insect-based
+information are growing in demand by biologists \cite{hassan_advances_2014}. For
+example, automatic insect identification systems can be applied to conserve
+natural ecosystems, to prevent commercial loss, and to support the study of
+insect-related diseases \cite{xia_insect_2018, kaloudis_insect_2005,
+    thenmozhi_crop_2019}.
+
+Due to the extensive number of insect species, manual exploration of
+insect-based information is difficult and often requires specialized expertise.
+Therefore, automated entomology is gaining attraction by both biologists and
+computer scientists and is expected to be a major contribution to the future of
+insect-based research \cite{martineau_survey_2017}. One of the most commonly
+used data types for insect analysis is image data. To develop an image-based
+system for insect analysis, we can take advantage of existing work in general
+image processing and texture analysis methods.
 
 Texture is an important feature in many applications, such as image processing,
 pattern recognition, and computer vision. Analysis of textures can be broken
@@ -338,16 +336,18 @@ paper, we focus on a \textit{model-based approach} which attempts to extract
 parameters to reveal common patterns and use those parameters to automatically
 distinguish between different textures \cite{maillard_texture_2003}.
 
-In this work, we explore automated entomology specifically for ants. Although
-there is some work regarding grouping ants into categories of similar cuticle,
-automated categorization has yet to become an active area of research. In
-general, the goal of automated insect classification methods is species
-indentification - \textit{i.e.} the identification of species from a set of
-observations. Due to the large number of different ant species, large scale ant
-species indentification with standard classification methods is not feasible.
-Therefore, we must simplify the problem by either other classifying a certain
-subset of ant species or by applying categories to the entire set of ant
-species.
+Ants are highly diverse, fill many ecological niches, and thus are a major topic
+of interest \cite{sosiak_multidimensional_2021}. In this work, we explore
+automated entomology specifically for ants in order to support ant-based
+ecological research. Although there is some work regarding grouping ants into
+categories of similar exoskeleton texture (\textit{cuticle}), automated
+categorization has yet to become an active area of research. In general, the
+goal of automated insect classification methods is species indentification -
+\textit{i.e.} the identification of species from a set of observations. Due to
+the large number of different ant species, large scale ant species
+indentification with standard classification methods is not feasible. Therefore,
+we must simplify the problem by either other classifying a certain subset of ant
+species or by applying categories to the entire set of ant species.
 
 In many texture analysis methods, the general goal is to automatically
 categorize an object into a set of objects with similar texture-based features.
@@ -373,21 +373,11 @@ texture analysis methods and comparing their results on a custom dataset.
 
 \subsection{Proposed Approach}
 
-In order to group similar ant species, we require mostly uniform images that
-depict the texture of the ant cuticle. We source our raw images from AntWeb
-\cite{perrichot_antweb_2012}, a database of ant head images. An example image is
-shown in Figure \ref{fig:CASENT0217419}. In general, the ant head images are centered in
-the image, facing the front, and share a similar posture. However, some images
-may not be centered, show the ant head in a different orientation, or may have a
-drastically different resolution from the average image. With some data
-preprocessing methods, these ant head images are suitable for traditional
-methods of image classification.
-
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{assets/images/CASENT0217419.jpg}
     \caption{ An example ant head image from AntWeb of species
-        \textit{Polyrhachis abbreviata} - specimen
+        \textit{Polyrhachis abbreviata}.
         \href{https://www.antweb.org/bigPicture.do?name=casent0217419&shot=h&number=1}{CASENT0217419}
         by \href{https://www.antweb.org/artist.do?id=92}{Estella Ortega}, from
         \href{https://www.antweb.org}{AntWeb}, is licensed under
@@ -395,7 +385,18 @@ methods of image classification.
     \label{fig:CASENT0217419}
 \end{figure}
 
-\FloatBarrier
+In order to group similar ant species, we require mostly uniform images that
+depict the texture of the ant cuticle. We source our raw images from AntWeb
+\cite{perrichot_antweb_2012}, a database of ant head images. An example image is
+shown in Figure \ref{fig:CASENT0217419}. In general, the ant head images are
+centered in the image, facing the front, and share a similar posture. However,
+some images may not be centered, may show the ant head in a different
+orientation, or may have a drastically different resolution from the average
+image. With some data preprocessing methods, these ant head images are suitable
+for traditional methods of image classification. Therefore, we will apply
+several image classification and texture analysis methods to a custom dataset of
+ant head images and compare the results using standard evaluation metrics.
+
 \subsection{Research Impact}
 
 The primary contribution of this research is the development of a unique dataset
@@ -403,14 +404,98 @@ for ant cuticle texture classification. Additionally, we compare the results of
 state-of-the-art deep learning and texture analysis methods on our proposed
 dataset. The secondary contribution is the analysis of the results of these
 methods and data analysis.
+\FloatBarrier
 \newpage
 % ========================================== %
 % chapter 2 - literature review
 \section{CHAPTER 2: LITERATURE REVIEW}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{assets/images/taxonomy-milkweed-bug.png}
+    \caption{Taxonomy chart showing taxonomy of the honey bee and large milkweed
+        bug. \href{https://askabiologist.asu.edu/sites/default/files/resources/articles/true_bugs/taxomomy-milkweed-bug.gif}{Taxonomy chart}
+        by {Adam Dolezal, Page Baluch}, from
+        \href{https://askabiologist.asu.edu/explore/true-bugs}{Ask a Biologist}, is licensed under
+        \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.
+    }
+    \label{fig:taxonomy-chart}
+\end{figure}
+
 \subsection{Insect Classification}
 
 In this section, we provide an overview of some insect classification methods.
+Proposed insect classification methods seek to classify insects at different
+hierarchical levels, such as species, genus, family, and order. Additionally,
+some methods may classify insects at a combination of different hierarchical
+levels. An example taxonomy chart with some insect taxonomy is shown in Figure
+\ref{fig:taxonomy-chart}. Insect classification methods can be applied to a
+variety of fields. In agriculture, insect classification methods can be used to
+identify the presence of pest insects in crops, which can inform crop
+managers in their choice of pesticides and help prevent crop loss
+\cite{liu_pestnet_2019, kasinathan_machine_2021}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/images/moths.png}
+    \caption{An example image of a set of moth wings for moth species
+        indentification, from \citeauthor*{feng_automated_2013}
+        \cite{feng_automated_2013}.}
+    \label{fig:moths}
+\end{figure}
+
+\citeauthor*{feng_automated_2013} apply an automated system to classify moth
+images based on semantic related visual attributes, which are defined as a
+pattern on the moth wings \cite{feng_automated_2013}.
+\citeauthor*{feng_automated_2013} use a custom texture descriptor based on the
+combination of Grey Level Co-occurence Matrtix and \textit{Scale-Invariant
+    Feature Transform} (SIFT) features \cite{gotlieb_texture_1990,
+    lowe_distinctive_2004}. The method proposed by \citeauthor*{feng_automated_2013}
+is used to classify 50 different moth species across 8 families and is based on
+standard texture analysis features \cite{feng_automated_2013}. A set of example
+moth wing images is shown in Figure \ref{fig:moths}. The results from
+\citeauthor*{feng_automated_2013} suggest that traditional feature extraction
+techniques for the semantic visual attributes of the moth wings are
+sufficient for training a classifier to classify an image between 10 randomly
+selected moth species \cite{feng_automated_2013}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/images/scorpions.png}
+    \caption{An example image of a scorpion for a scorpion species classifier
+        with the background removed, from \citeauthor*{urteaga_scorpions_2016}
+        \cite{urteaga_scorpions_2016}.}
+    \label{fig:scorpions}
+\end{figure}
+
+\citeauthor*{urteaga_scorpions_2016} use machine learning methods in order to
+classify images between two different scorpion species: \textit{Centruroides
+    limpidus} and \textit{Centruroides noxius} \cite{urteaga_scorpions_2016}. After
+applying background distinction based on dynamic color threshold,
+\citeauthor*{urteaga_scorpions_2016} apply feature extraction to extract
+features from the separated scorpion image such as aspect ratio, rectangularity,
+and compactness \cite{urteaga_scorpions_2016}.
+\citeauthor*{urteaga_scorpions_2016} apply three different classification models
+to classify the image as one of the species: Artificial Neural Network,
+Regression Tree, and Random Forest classifiers \cite{urteaga_scorpions_2016}. An
+example image of a scorpion with the background removed is shared in Figure
+\ref{fig:scorpions}. The results from \citeauthor*{urteaga_scorpions_2016} show
+that after background removal, characteristics from the entire body of the
+scorpion can be used to create a binary classifier that can classify the image
+as one of the two species. Therefore, we may consider an experiment on the
+presence of the background from the ant head image in order to improve
+classification accuracy. However, the features extracted from
+\cite{urteaga_scorpions_2016} do not make use of any deep learning methods and
+are not compatible with our texture-based dataset.
+\newpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/images/imagenet_ants.png}
+    \caption{An example image of three distinct ant species from ImageNet, from
+        \citeauthor*{glick_insect_2016} \cite{glick_insect_2016}.}
+    \label{fig:imagenet-ants}
+\end{figure}
 
 \citeauthor*{lim_performance_2017} apply a CNN-based algorithm for insect
 classification \cite{lim_performance_2017}. \citeauthor*{lim_performance_2017}
@@ -423,37 +508,159 @@ categories that specify the class of the insect on a species level,
 as some categories that specify the class of the insect on a family level,
 \textit{e.g.} \textit{ant}, \textit{fly}, and \textit{bee}
 \cite{imagenet_labels}. \citeauthor*{lim_performance_2017} use a modified
-AlexNet architecture and experiment on how different numbers of kernels affect
-the performance of the model \cite{lim_performance_2017}.
+AlexNet architecture and experiment with different numbers of kernels and their
+effect the performance of the model \cite{lim_performance_2017}.
 \citeauthor*{glick_insect_2016} employ a similar approach by classifying 277
 insect classes from ImageNet using a hierarchical CNN \cite{glick_insect_2016}.
 The results from \citeauthor*{lim_performance_2017} and
 \citeauthor*{glick_insect_2016} suggest that a CNN is capable of differentiating
 between different hierarchical classes of insects. In our research, we are
-interested in the classification of ant images of a hierarchical level
-in-between species and family.
+interested in the classification of ant images of a hierarchical level between
+species and family.
 
-% bees
+\subsection{Automated Ant Indentification}
 
-% fruit flies
+In this section, we explore some machine learning methods applied directly to
+automated ant systems. We define automated ant systems as methods which process
+information about ants in a computer environment. Many automated ant systems
+have the purpose of tracking individual ants and their movements. An example of
+ant tracking software is shown in Figure \ref{fig:ant-tracking-outdoors}.
+Systems that can track multiple individuals in a colony are applied to support
+research that investigates social group behaviors of ants
+\cite{chandra_foraging_2021, fetter_oxytocin_2021, sclocco_integrating_2020}.
+
+\citeauthor*{sosiak_multidimensional_2021} use morphometric traits as features to
+analyze the relationship between the traits and the ecology of the ant
+\cite{sosiak_multidimensional_2021}. \citeauthor*{sosiak_multidimensional_2021}
+apply a supervised Random Forest algorithm to classify ants based on their
+ecology \cite{sosiak_multidimensional_2021}. The research carried out by
+\citeauthor*{sosiak_multidimensional_2021} is similar to the end goal of this
+research - by creating a system that categorizes ants based on their cuticle
+texture, we hope to support a framework that can be used to analyze the
+ecological niche of ants in future work.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/images/ant_tracking_outdoors.png}
+    \caption{An example output of an individual ant track from a group of
+        outdoor ants, from \citeauthor*{cao_online_2020}
+        \cite{cao_online_2020}.}
+    \label{fig:ant-tracking-outdoors}
+\end{figure}
+
+\citeauthor*{cao_online_2020} apply ResNet to automatically extract deep
+features from individual ants for offline learning \cite{cao_online_2020}.
+\citeauthor*{cao_online_2020} modify the parameters of the softmax classifier to
+obtain a cosine similarity metrix classifier to automatically track 10
+individual ants in a group \cite{cao_online_2020}. \citeauthor*{cao_online_2020}
+use a dataset of 50 images for training and test their model on a much larger
+dataset of 24000 images \cite{cao_online_2020}. The results from
+\citeauthor*{cao_online_2020} suggest that ResNet is able to differentiate
+between individual ants.
+
+\citeauthor*{gal_antrax_2020} also propose a framework for tracking inidividual
+insects by taking advantage of color tagging. \citeauthor*{gal_antrax_2020} show
+examples of their software tracking individual ants from a group that are
+identified with different colors of paint applied to the ants
+\cite{gal_antrax_2020}. The method from \citeauthor*{gal_antrax_2020} should
+generalize to any type of insect and have relaxed requirements for image quality
+due to the constraint of applying color tags \cite{gal_antrax_2020}.  However,
+the images of the group of ants used for multi object tracking is not similar to
+our dataset of ant head images, other than the fact that both datasets were
+collected in a laboratory setting.
 
 \newpage
 % ========================================== %
 % chapter 3 - methodology
 \section{CHAPTER 3: METHODOLOGY}
 
+\subsection{Dataset}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/images/rough_collage.png}
+    \caption{Examples of rough cuticle texture ant images in the dataset after
+        center cropping, sourced from AntWeb \cite{perrichot_antweb_2012}.}
+    \label{fig:rough-cuticle-texture}
+\end{figure}
+
+In this section, we describe the creation of the custom dataset used in this
+research. In our dataset, we classify ant head images from AntWeb
+\cite{perrichot_antweb_2012} into two categories: \textit{rough} and
+\textit{smooth}. Some randomly selected images from each category are shown in
+Figures \ref{fig:rough-cuticle-texture} and \ref{fig:smooth-cuticle-texture}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{assets/images/smooth_collage.png}
+    \caption{Examples of smooth cuticle texture ant images in the dataset after
+        center cropping, sourced from AntWeb \cite{perrichot_antweb_2012}.}
+    \label{fig:smooth-cuticle-texture}
+\end{figure}
+
+\subsubsection{Sculpture Identification Protocol}
+To begin, a master spreadsheet was created with the 2,499 different ant species
+to be identified for the primary dataset. A team of three assistants were in
+charge of the manual identification process. The team was trained to identify
+cuticle sculpturing through a process which consisted of one 45-minute
+introductory lesson explaining the project and texture categories and then given
+a training set of photos to identify from the genus \textit{Polyrhachis}, whose
+members display among the highest diversity of cuticle patterns all categories.
+The sculpture identification protocol describes the two primary categories:
+\textit{rough} and \textit{smooth}.
+
+Initially, the sculpture identification protocol had 8 subcategories of cuticle
+texture, including dimpled, ridged, and differing levels of smooth texture.
+However, for simplicity, we work only with the two main categories. The training
+set identifications were reviewed together as a group. Once training was
+complete, assistants were assigned the same genera of ants to identify
+independently each week. A weekly meeting was held to discuss identifications
+and assign new ones. These identifications were collected in the master
+spreadsheet and the identifications were assigned to individual ant species on a
+majority basis.
+
+\subsubsection{Data Collection}
+To collect the images, the assistants followed the taxonomy information
+available in the master spreadsheet to the appropriate AntWeb page. In many
+cases, there are multiple ant head images of the same species, and occasionally
+there are multiple image resolution available from a single image. To simplify
+the data collection process, the assistants were instructed to download the
+first ant head image of the species being identified in the highest resolution
+possible. Each image was named with an identifier that corresponds with the row
+number in the master spreadsheet. The same ant head images that were downloaded
+in the data collection phase were the same ones used in the sculpture
+identification protocol. Ant species which did not have any images of the head
+were excluded from the dataset. Additionally, ant species which only had a head
+image of a queen ant were excluded from the dataset.
+
+\subsubsection{Data Preprocessing}
+
+
+\subsection{Models}
+% resnet 
+% vgg
+% texture-based approaches
+
+\subsection{Evaluation}
 \newpage
 % ========================================== %
 % chapter 4 - experimental results and analysis
 \section{CHAPTER 4: EXPERIMENTAL RESULTS AND ANALYSIS}
-
-
 \subsection{Environment}
+
+\subsection{Results}
+
+\subsection{Analysis}
 \newpage
 % ========================================== %
 % chapter 5 - conclusion
 \section{CHAPTER 5: CONCLUSION}
-\newpage
 
-\printbibliography
+\subsection{Conclusion}
+
+\subsection{Future Work}
+\newpage
+% ========================================== %
+% bibliography
+\printbibliography[heading=bibintoc,title={REFERENCES}]
 \end{document}
