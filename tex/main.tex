@@ -49,7 +49,7 @@
 % ========================================== %
 % custom variables
 \newcommand{\thesistitle}{
-    {\Large A comparative analysis of texture analysis methods on
+    {\Large A comparative study of texture analysis methods on
 ant head images}
 }
 % \newcommand{\toppage}{\vspace*{0.1in}}
@@ -193,10 +193,15 @@ use (examination only or copying)
 
 \noindent There is a large variety of ant species, and most species are diverse
 in terms of size, shape, behaviors, and especially skin (cuticle) textures.
-However, the significance of ant cuticle texture is not widely researched. This
+However, the significance of ant cuticle texture is not widely researched. Ant
+cuticle texture presumably provides some type of function, and therefore is
+useful to research for ecological applications and bioinspired designs. This
 research employs modern machine learning methods such as texture analysis and
-classification with CNN and clustering to automatically group similar ant
-species to allow for the study of influences cuticle texture on ant ecology.
+deep machine learning to automatically group similar ant species based on
+morphological traits. We provide a comparative study of the performance of
+modern texture analysis methods on ant head images. We evaluate the results of
+the classification methods with modern visualization techniques.
+
 \newpage
 
 % ========================================== %
@@ -268,12 +273,13 @@ then also over your skill.
 I would have given up a long time ago without the support of my family. So, I
 would like to thank my loving family for their support throughout the completion
 of my graduate degree. I would also like to thank Dr. Chih-Cheng Hung for his
-mentorship for my thesis and for his guidance in my other research projects.
-Next, I would like to thank Dr. Zhiling Long for his insights for machine
-learning and texture analysis. I would like to thank John Paul Hellenbrand, his
-advisor Dr. Clint Penick, and their lab for providing the project and dataset.
-Finally, I would like to thank Dr. Coskun Tekes for providing the Lambda Labs
-GPU server for my experiments.
+mentorship for my thesis and for his guidance in my other research projects. I
+would like to thank Anthony Phan, my undergraduate assistant and friend for his
+help in running the experiments. Next, I would like to thank Dr. Zhiling Long
+for his insights for machine learning and texture analysis. I would like to
+thank John Paul Hellenbrand, his advisor Dr. Clint Penick, and their lab for
+providing the project and dataset. Finally, I would like to thank Dr. Coskun
+Tekes for providing the Lambda Labs GPU server for my experiments.
 \newpage
 
 % ========================================== %
@@ -327,15 +333,6 @@ used data types for insect analysis is image data. To develop an image-based
 system for insect analysis, we can take advantage of existing work in general
 image processing and texture analysis methods.
 
-Texture is an important feature in many applications, such as image processing,
-pattern recognition, and computer vision. Analysis of textures can be broken
-into three main categories: texture classification, texture segmentation, and
-texture synthesis \cite{reed_review_1993}. The process of classifying a texture
-into a set of categories and relies on three different approaches. In this
-paper, we focus on a \textit{model-based approach} which attempts to extract
-parameters to reveal common patterns and use those parameters to automatically
-distinguish between different textures \cite{maillard_texture_2003}.
-
 Ants are highly diverse, fill many ecological niches, and thus are a major topic
 of interest \cite{sosiak_multidimensional_2021}. In this work, we explore
 automated entomology specifically for ants in order to support ant-based
@@ -364,11 +361,11 @@ The overarching question that we wish to address by beginning this research is:
 \textit{how does the texture of ant cuticle affect the ant ecology}? However, to
 even begin contemplating this question requires a substantial amount of
 preliminiary research. One point that is necessary to begin this research is to
-propose a method of group ants by texture. Additionally, due to the sheer number
+create a method of group ants by texture. Additionally, due to the sheer number
 of ant species, an automated effort is necessary to group similar ant species.
 Therefore, we start our endeavor with a more straightforward research question:
 \textit{are texture analysis methods able to group similar ant species}? By the
-end of this research, we will answer this question by demonstrating a variety of
+end of this research, we answer this question by demonstrating a variety of
 texture analysis methods and comparing their results on a custom dataset.
 
 \subsection{Proposed Approach}
@@ -393,11 +390,33 @@ centered in the image, facing the front, and share a similar posture. However,
 some images may not be centered, may show the ant head in a different
 orientation, or may have a drastically different resolution from the average
 image. With some data preprocessing methods, these ant head images are suitable
-for traditional methods of image classification. Therefore, we will apply
-several image classification and texture analysis methods to a custom dataset of
-ant head images and compare the results using standard evaluation metrics.
+for traditional methods of image classification. Therefore, we apply several
+image classification and texture analysis methods to a custom dataset of ant
+head images and compare the results using standard evaluation metrics.
 
 \subsection{Research Impact}
+
+There are two main research impacts that we expect to support from this
+research. First is the ecological and biodiversity aspect - due to the large
+number of ant species that are crucial to nearly every ecosystem, by supporting
+ant ecological research we are able to support biodiversity research which is
+essential for supporting all life \cite{pongsiri_examining_2007}. The second
+research impact is the application of exoskeleton sculpturing to bioinspired
+designs, especially for material science. A prime example of bioinspired
+material comes from the \textit{Sharklet micropattern}, a surface material that
+gains inspiration from the skin of sharks \cite{cooper_engineered_2011}. The
+skin of sharks has a particular physical pattern that has been shown to inhibit
+the growth of bacteria and other microorganisms \cite{cooper_engineered_2011}.
+The bioinspired Sharklet micropattern is a promising material that shows similar
+properties to shark skin \cite{mann_surface_2014}. Presumably, the texture of
+the ant cuticle is functional, and therefore, has some sort of value to
+bioinspired material design research. Due to the wide variety of ant cuticle
+textures, it is hypothesized that the sculpturing may have a significant impact
+on thermoregulation, water retention, and structural protection
+\cite{james_cross_2021}. By understanding the function of the form, we can
+replicate the form in order to reproduce a function.
+
+\subsection{Contributions}
 
 The primary contribution of this research is the development of a unique dataset
 for ant cuticle texture classification. Additionally, we compare the results of
@@ -406,9 +425,187 @@ dataset. The secondary contribution is the analysis of the results of these
 methods and data analysis.
 \FloatBarrier
 \newpage
+
 % ========================================== %
-% chapter 2 - literature review
-\section{CHAPTER 2: LITERATURE REVIEW}
+% chapter 2 - Background
+\section{CHAPTER 2: BACKGROUND}
+
+\subsection{Texture Analysis}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/images/texturedataset.png}
+    \caption{A sample of the describable texture dataset, from
+        \citeauthor*{cimpoi_describing_2014} \cite{cimpoi_describing_2014}. }
+    \label{fig:texturedataset}
+\end{figure}
+
+A visual attribute is a characteristic of an object that is measured visually
+and also has some semantic meaning \cite{cimpoi_describing_2014}. For example,
+the color of an object is a visual attribute. By categorizing objects based on
+their common visual attributes, we can obtain more detailed information about
+the relationships between objects. Patterns and textures are important visual
+attributes in many applications, such as image processing, pattern recognition,
+and computer vision. Analysis of textures can be broken into three main
+categories: texture classification, texture segmentation, and texture synthesis
+\cite{reed_review_1993}. The process of classifying a texture into a set of
+categories and relies on three different approaches. In this paper, we focus on
+a \textit{model-based approach} which attempts to extract parameters to reveal
+common patterns and use those parameters to automatically distinguish between
+different textures \cite{maillard_texture_2003}.
+
+\subsection{Deep Learning}
+
+In the past, automated classification methods depended on human-engineered
+feature extraction processes, which tended to not generalize to other domains
+\cite{duda_pattern_2001}. More recently, neural networks have been shown to be
+able to automatically extract features from input data \cite{arel_deep_2010}.
+More specifically, \textit{convolutional neural networks} (CNN) can be applied
+to multidimensional data (especially images) and learn high-level features that
+can be used to automatically classify data \cite{lecun_gradient_1998}. CNNs have
+been around for a few decades currently, but improvements have been made over
+recent years which have allowed CNNs to have very good performance on a wide
+range of tasks.
+
+\newpage
+
+\subsection{Evaluation}
+
+\subsubsection{Quantitative Metrics}
+
+In estimating the performance of a classification model, we wish to evaluate the
+ability of the model to make correct classifications. In order to do so, we
+simply count the number of correct and incorrect classifications on a test
+dataset. To visualize a summary of the models' performance, we can use a
+confusion matrix. A confusion matrix is especially useful in a setting with two
+classes, but can also be used in a setting with more than two distinct classes.
+An example of a confusion matrix is shown in Figure \ref{fig:matrix}. In a two
+class setting, the confusion matrix is a square matrix with four entries. The
+columns of the matrix represent the true value of the data, typically as
+determined by an expert. The rows of the matrix represent the predicted value of
+the data, as determined by the model. Using the confusion matrix, we can derive
+several meaningful evaluations of the model's performance.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{assets/images/cmatrix.png}
+    \caption{Example image of a confusion matrix,
+        by \href{https://medium.com/@aatish_kayyath/confusion-matrix-lets-clear-this-confusion-4b0bc5a5983c}{Aatish Kayyath}, is licensed under
+        \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.}
+    \label{fig:matrix}
+\end{figure}
+
+\newpage
+
+To begin, we distinguish the following notations:
+
+\begin{itemize}
+    \item \textit{True Positive} (TP) - The number of times the model correctly
+          classifies a sample as a positive (belonging to the '1' class).
+    \item \textit{False Positive} (FP) - The number of times the model incorrectly
+          classifies a sample as a positive (belonging to the '1' class).
+    \item \textit{True Negative} (TN) - The number of times the model correctly
+          classifies a sample as a negative (belonging to the '0' class).
+    \item \textit{False Negative} (FN) - The number of times the model incorrectly
+          classifies a sample as a negative (belonging to the '0' class).
+\end{itemize}
+
+Accuracy is a measure of the correctly classified samples as a percentage of
+the total number of samples. The accuracy of a classification model is
+calculated as:
+
+\begin{equation}
+    \textit{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+\end{equation}
+
+Accuracy is a standard evaluation metric for classification models, however, it
+can hide the fact that a classification model may be overfitted when the dataset
+is imbalanced. We add some other evaluation metrics based on the confusion
+matrix.
+
+\newpage
+Recall is a measure of the correctly classified samples as a
+percentage of the samples that belong to the positive class. The recall of a
+classification model is calculated as:
+
+\begin{equation}
+    \textit{Recall} = \frac{TP}{TP + FN}
+\end{equation}
+
+Recall is typically used in conjuction with the precision. Precision is a
+measure of the correctly classified samples as a percentage of the samples that
+were predicted to belong to the positive class in addition to the samples that
+were actually positive. The precision of a classification model is calculated
+as:
+
+\begin{equation}
+    \textit{Precision} = \frac{TP}{TP + FP}
+\end{equation}
+
+Finally, we examine the F1 score. The F1 score is the harmonic mean of the
+precision and recall. The F1 score of a classification model is calculated as:
+
+\begin{equation}
+    \textit{F1 Score} = 2 \times \frac{Precision \times Recall}{Precision + Recall}
+\end{equation}
+
+\newpage
+\subsubsection{Qualitative Metrics}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{assets/images/gradcam.jpg}
+    \caption{Example image of Grad-CAM applied to images of 'keyboards' from the
+        COCO dataset, from \citeauthor*{selvaraju_grad_2020}
+        \cite{selvaraju_grad_2020}. }
+    \label{fig:gradcam}
+\end{figure}
+
+In general, CNN have very good performance on visual recognition tasks. However,
+beacuse the learning strategy of a CNN is end-to-end, it is often called a
+\textit{black box} - \textit{i.e.} it is difficult to visually interpret the
+internal workings of a CNN, yet it is easy to understand the inputs and outputs
+\cite{zhang_visual_2018}. One method proposed to produce \textit{visual
+    explanations} for CNNs is the \textit{gradient-weighted class activation
+    mapping} (Grad-CAM) method \cite{selvaraju_grad_2020}. By using the gradients of
+a class from the final convolutional layer, the important regions that lead to
+the classification can be identified and visualized. With Grad-CAM, we can
+understand the important features learned by the model and how the final
+classification was made. Figure \ref{fig:gradcam} shows an example of Grad-CAM
+applied to a model that classifies the images of keyboards from the COCO
+dataset. The left-side of the figure shows the image that was input to the
+model, while the right-side shows the output of Grad-CAM. The heatmap clearly
+shows the important features of the image which made the model classify the
+image as a keyboard. Applying Grad-CAM will allow us to increase the
+interpretability of our models.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/images/tsne.png}
+    \caption{Example image of t-SNE embeddings of MNIST dataset,
+        by \href{https://www.flickr.com/photos/kylemcdonald/26620503329/}{Kyle
+            McDonald}, is licensed under
+        \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.}
+    \label{fig:tsne}
+\end{figure}
+
+For large scale visualization of our data, we must first tackle the
+dimensionality of our image dataset. Image data has a large number of dimensions
+as a result of each pixel in the image being represented by a tuple of three
+values (RGB). \textit{T-distributed stochastic neighbor embedding} (t-SNE) was
+proposed for visualizing high-dimensional data in two to three dimensions
+\cite{maaten_visualizing_2008}. t-SNE finds similarity between datapoints by
+mapping distances into conditional probabilities \cite{maaten_visualizing_2008}.
+For an example, the MNIST dataset is a set of images of handwritten digits from
+zero to nine, and have a size of 28x28 pixels, for a total of 784 features
+\cite{deng_mnist_2012}. An example output embedding of t-SNE on the
+MNIST dataset is shown in Figure \ref{fig:tsne}.
+
+\FloatBarrier
+\newpage
+% ========================================== %
+% chapter 3 - literature review
+\section{CHAPTER 3: LITERATURE REVIEW}
 
 \begin{figure}[h]
     \centering
@@ -571,8 +768,8 @@ collected in a laboratory setting.
 
 \newpage
 % ========================================== %
-% chapter 3 - methodology
-\section{CHAPTER 3: METHODOLOGY}
+% chapter 4 - methodology
+\section{CHAPTER 4: METHODOLOGY}
 
 \subsection{Dataset}
 
@@ -580,7 +777,7 @@ collected in a laboratory setting.
     \centering
     \includegraphics[width=1\textwidth]{assets/images/rough_collage.png}
     \caption{Examples of rough cuticle texture ant images in the dataset after
-        center cropping, sourced from AntWeb \cite{perrichot_antweb_2012}.}
+        center cropping.}
     \label{fig:rough-cuticle-texture}
 \end{figure}
 
@@ -594,11 +791,12 @@ Figures \ref{fig:rough-cuticle-texture} and \ref{fig:smooth-cuticle-texture}.
     \centering
     \includegraphics[width=1\textwidth]{assets/images/smooth_collage.png}
     \caption{Examples of smooth cuticle texture ant images in the dataset after
-        center cropping, sourced from AntWeb \cite{perrichot_antweb_2012}.}
+        center cropping.}
     \label{fig:smooth-cuticle-texture}
 \end{figure}
 
 \subsubsection{Sculpture Identification Protocol}
+
 To begin, a master spreadsheet was created with the 2,499 different ant species
 to be identified for the primary dataset. A team of three assistants were in
 charge of the manual identification process. The team was trained to identify
@@ -610,16 +808,17 @@ The sculpture identification protocol describes the two primary categories:
 \textit{rough} and \textit{smooth}.
 
 Initially, the sculpture identification protocol had 8 subcategories of cuticle
-texture, including dimpled, ridged, and differing levels of smooth texture.
-However, for simplicity, we work only with the two main categories. The training
-set identifications were reviewed together as a group. Once training was
-complete, assistants were assigned the same genera of ants to identify
-independently each week. A weekly meeting was held to discuss identifications
-and assign new ones. These identifications were collected in the master
-spreadsheet and the identifications were assigned to individual ant species on a
-majority basis.
+texture, including dimpled, ridged, and differing levels of smooth texture. For
+simplicity, we work only with the two main categories. The training set
+identifications were reviewed together as a group by the assistants. Once
+training was complete, assistants were assigned the same genera of ants to
+identify independently each week. A weekly meeting was held to discuss
+identifications and assign new ones. These identifications were collected in the
+master spreadsheet and the identifications were assigned to individual ant
+species on a majority basis.
 
 \subsubsection{Data Collection}
+
 To collect the images, the assistants followed the taxonomy information
 available in the master spreadsheet to the appropriate AntWeb page. In many
 cases, there are multiple ant head images of the same species, and occasionally
@@ -633,19 +832,46 @@ identification protocol. Ant species which did not have any images of the head
 were excluded from the dataset. Additionally, ant species which only had a head
 image of a queen ant were excluded from the dataset.
 
+Ant specimen images taken from AntWeb \cite{perrichot_antweb_2012} are created
+by different photographers and therefore have different attributes, such as
+environment, resolution, and lighting. In the ant head images, the ant head is
+in the center of the image and the body is pointing away from the camera. The
+focus of the ant head image is centered on the head, with the background and
+image artifacts from the ant body typically blurred. In most ant head images,
+there is a bar which indicates the scale of the image due to the variety in the
+sizes of different ant species. In a few ant head images, there exists some text
+denoting the specimen identifier and other info. In terms of texture, some ant
+specimens are very old, so their head images have other abnormalities such as
+cracks in the cuticle and the presence of dust.
+
 \subsubsection{Data Preprocessing}
 
+Due to the variety of the ant head image attributes, we apply simple
+preprocessing before the images are used in our model. We want the images to
+have a uniform size for simplicity in our classification process. Since the ant
+head images are typically centered in the image, we apply a center crop to each
+image to create a square image of the same size. Once the image is square, we
+resize each image to a fixed size of 226x226 pixels. We leave other
+discrepancies in the images untouched.
 
 \subsection{Models}
 % resnet 
 % vgg
-% texture-based approaches
 
 \subsection{Evaluation}
+
+We evaluate the performance of the models according to standard evaluation
+methods. Since we are working with a binary classification problem, we use a
+standard confusion matrix to evaluate the accuracy, precision, and F1 score. We
+also apply Grad-CAM with manual inspection to visualize the activation weights
+for incorrectly classified images to determine which features are interfering
+with the classification. Finally, we apply t-SNE to visualize the seperation
+learned for the model to further analyze the classifications made by the model.
+
 \newpage
 % ========================================== %
-% chapter 4 - experimental results and analysis
-\section{CHAPTER 4: EXPERIMENTAL RESULTS AND ANALYSIS}
+% chapter 5 - experimental results and analysis
+\section{CHAPTER 5: EXPERIMENTAL RESULTS AND ANALYSIS}
 \subsection{Environment}
 
 \subsection{Results}
@@ -653,8 +879,8 @@ image of a queen ant were excluded from the dataset.
 \subsection{Analysis}
 \newpage
 % ========================================== %
-% chapter 5 - conclusion
-\section{CHAPTER 5: CONCLUSION}
+% chapter 6 - conclusion
+\section{CHAPTER 6: CONCLUSION}
 
 \subsection{Conclusion}
 
@@ -662,5 +888,6 @@ image of a queen ant were excluded from the dataset.
 \newpage
 % ========================================== %
 % bibliography
+% \setstretch{1} % single spacing
 \printbibliography[heading=bibintoc,title={REFERENCES}]
 \end{document}
